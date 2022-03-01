@@ -10,6 +10,7 @@ import { RoleModule } from './role/role.module';
 import { LogModule } from "./log/log.module";
 // import { LogsModule } from './logs/logs.module';
 // import { CamposModule } from './campos/campos.module';
+import { MessageModule } from './message/message.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { LogModule } from "./log/log.module";
     ProdutosprecosModule,
     RoleModule,
     LogModule,
+    MessageModule,
     // LogsModule,
     // CamposModule,
   ],

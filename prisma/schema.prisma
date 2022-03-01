@@ -58,3 +58,8 @@ model Log {
   valorAlterado String
   created_at    DateTime @default(now())
 }
+
+model Mensagem {
+  id            Int      @id @unique @default(autoincrement())
+  mensagem      String
+}

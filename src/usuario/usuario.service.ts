@@ -17,7 +17,7 @@ export class UsuarioService {
     try {
       const createdUser = await this.prisma.usuario.create({ data });
       createdUser.senha = undefined;
-      console.log(`Usuário ${createdUser.nome} criado com sucesso.`)
+      console.log(`Usuário ${createdUser.nome} criado com sucesso.`);
       return createdUser;
     } catch (error) {
       console.log(error);
@@ -26,7 +26,6 @@ export class UsuarioService {
   }
 
   async findByLogin(login: LoginDto): Promise<Usuario> {
-    
     const user = await this.prisma.usuario.findFirst({
       where: {
         email: login.email,
@@ -48,7 +47,7 @@ export class UsuarioService {
         HttpStatus.UNAUTHORIZED
       );
     }
-    return user
+    return user;
   }
 
   async validateUser(payload: JwtPayload): Promise<Usuario> {
@@ -66,60 +65,71 @@ export class UsuarioService {
   }
 
   async findAll(): Promise<Usuario[]> {
-    try{
-    const total = await this.prisma.usuario.findMany();
-      if(!total) {
-        console.log("Nenhum item encontrado.")
-        throw new HttpException("Nenhum item encontrado.", HttpStatus.NOT_FOUND);
+    try {
+      const total = await this.prisma.usuario.findMany();
+      if (total.length === 0) {
+        console.log("Nenhum item encontrado.");
+        throw new HttpException(
+          "Nenhum item encontrado.",
+          HttpStatus.NOT_FOUND
+        );
       }
       return total;
-    } catch(error){
-      console.error(error)
-      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST)
+    } catch (error) {
+      console.error(error);
+      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
     }
   }
 
   async findOne(id: number): Promise<Usuario> {
-    try{
-    const user = await this.prisma.usuario.findUnique({ where: { id } });
-    if(!user){
-      console.log("Nenhum item encontrado.")
-      throw new HttpException("Nenhum item encontrado.", HttpStatus.NOT_FOUND);      
-    }
-    return user
-    } catch(error) {
-      console.log(error)
-      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST)
+    try {
+      const user = await this.prisma.usuario.findUnique({ where: { id } });
+      if (!user) {
+        console.log("Nenhum item encontrado.");
+        throw new HttpException(
+          "Nenhum item encontrado.",
+          HttpStatus.NOT_FOUND
+        );
+      }
+      return user;
+    } catch (error) {
+      console.log(error);
+      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
     }
   }
 
   async update(id: number, data: UpdateUsuarioDto): Promise<Usuario> {
     data.senha = await bcrypt.hash(data.senha, 10);
-    try{
-    const user =await this.prisma.usuario.update({ data, where: { id } });
-    if(!user){
-      console.log("Item não encontrado.")
-      throw new HttpException("Nenhum item encontrado.", HttpStatus.NOT_FOUND)
-    }
-    return user
-    } catch(error){
-      console.error(error)
-      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST)
+    try {
+      const user = await this.prisma.usuario.update({ data, where: { id } });
+      if (!user) {
+        console.log("Item não encontrado.");
+        throw new HttpException(
+          "Nenhum item encontrado.",
+          HttpStatus.NOT_FOUND
+        );
       }
-  
+      return user;
+    } catch (error) {
+      console.error(error);
+      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
     }
-  
+  }
+
   async remove(id: number): Promise<Usuario> {
     try {
-    const user = await this.prisma.usuario.delete({ where: { id } });
-     if (!user) {
-      console.log("Nenhum item encontrado.")
-      throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
-     } 
-     return user;
-  } catch(error) {
-    console.error(error);
-    throw new HttpException("Erro ao excluir, tente novamente", HttpStatus.BAD_REQUEST);
-  }
+      const user = await this.prisma.usuario.delete({ where: { id } });
+      if (!user) {
+        console.log("Nenhum item encontrado.");
+        throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
+      }
+      return user;
+    } catch (error) {
+      console.error(error);
+      throw new HttpException(
+        "Erro ao excluir, tente novamente",
+        HttpStatus.BAD_REQUEST
+      );
+    }
   }
 }
