@@ -7,24 +7,24 @@ import {
 } from "class-validator";
 
 export class CreateProdutosPrecosDto {
+  @IsString()
   @IsNotEmpty()
-  @IsInt()
-  codigo: number;
+  codigoid: string;
 
   @IsNotEmpty()
-  produtoid: string;
-
-  @IsNotEmpty()
-  preco1: number;
+  precoCusto: number;
 
   @IsNotEmpty()
   @IsInt()
-  limitedesconto: number;
+  porcentagemLucro: number;
 
   @IsNotEmpty()
   @IsInt()
   promocaodesconto: number;
 
   @IsNotEmpty()
-  precoliquido1: number;
+  valorVenda: number;
+
+  @IsNotEmpty()
+  valorAtacado: number;
 }

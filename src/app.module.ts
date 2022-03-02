@@ -11,6 +11,10 @@ import { LogModule } from "./log/log.module";
 // import { LogsModule } from './logs/logs.module';
 // import { CamposModule } from './campos/campos.module';
 import { MessageModule } from './message/message.module';
+import { FornecedorModule } from './fornecedor/fornecedor.module';
+import { TipoModule } from './tipo/tipo.module';
+import { TipoProdutoModule } from './tipo-produto/tipo-produto.module';
+import { FornecedorProdutoModule } from './fornecedor-produto/fornecedor-produto.module';
 
 @Module({
   imports: [
@@ -22,6 +26,10 @@ import { MessageModule } from './message/message.module';
     RoleModule,
     LogModule,
     MessageModule,
+    FornecedorModule,
+    TipoModule,
+    TipoProdutoModule,
+    FornecedorProdutoModule,
     // LogsModule,
     // CamposModule,
   ],

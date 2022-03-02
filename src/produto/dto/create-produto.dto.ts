@@ -1,9 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsNotEmpty,
-  IsInt,
-  IsString,
-  } from "class-validator";
+import { IsNotEmpty, IsInt, IsString } from "class-validator";
 
 export class CreateProdutoDto {
   @IsNotEmpty()
@@ -12,7 +8,14 @@ export class CreateProdutoDto {
     example: "123456",
     description: `O campo produto será utilizado para cadastrar um dado único para o produto`,
   })
-  produto1: string;
+  codigo: string;
+
+  @IsString()
+  @ApiProperty({
+    example: "http://www.imagemqualquer.com.br/çlkmasndlasnlfnafkjdaf",
+    description: `Campo utilizado para inserir url da imagem do produto.`,
+  })
+  imagem: string;
 
   @IsNotEmpty()
   @IsString()
@@ -32,17 +35,9 @@ export class CreateProdutoDto {
 
   @IsNotEmpty()
   @IsString()
-  @ApiProperty({
-    example: "Roupa Masculina",
-    description: `O campo colecao será utilizado para cadastrar o tipo do produto`,
-  })
-  colecao: string;
-
-  @IsNotEmpty()
-  @IsString()
-  grife: string;
+  dataValidade;
 
   @IsNotEmpty()
   @IsInt()
-  disponivel: number;
+  quantidade: number;
 }

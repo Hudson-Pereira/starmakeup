@@ -8,29 +8,62 @@ datasource db {
 }
 
 model Produto {
-  id             Int             @id @unique @default(autoincrement())
-  produto1       String          @unique
+  id             Int                 @id @unique @default(autoincrement())
+  codigo         String              @unique
+  imagem         String
   nome           String
   descricao      String
-  colecao        String
-  grife          String
-  disponivel     Int
-  created_at     DateTime        @default(now())
-  updated_at     DateTime        @updatedAt
+  tipo           tipoProduto[]
+  fornecedor     fornecedorProduto[]
+  dataValidade   String
+  quantidade     Int
+  created_at     DateTime            @default(now())
+  updated_at     DateTime            @updatedAt
   ProdutosPrecos ProdutosPrecos?
+}
+
+model tipoProduto {
+  id        Int     @id @unique @default(autoincrement())
+  produto   Produto @relation(fields: [produtoid], references: [codigo])
+  tipo      Tipo    @relation(fields: [tipoid], references: [id])
+  produtoid String
+  tipoid    Int
+}
+
+model Tipo {
+  id      Int           @id @unique @default(autoincrement())
+  tipo    String
+  produto tipoProduto[]
+}
+
+model fornecedorProduto {
+  id           Int        @id @unique @default(autoincrement())
+  produto      Produto    @relation(fields: [produtoid], references: [codigo])
+  fornecedor   Fornecedor @relation(fields: [fornecedorid], references: [cnpj])
+  produtoid    String
+  fornecedorid Int
+}
+
+model Fornecedor {
+  id      Int                 @id @unique @default(autoincrement())
+  nome    String
+  cnpj    Int                 @unique
+  email   String
+  contato Int
+  produto fornecedorProduto[]
 }
 
 model ProdutosPrecos {
   id               Int      @id @unique @default(autoincrement())
-  codigo           Int
-  produtoid        String   @unique
-  preco1           Float
-  limitedesconto   Int
+  codigoid         String   @unique
+  precoCusto       Float
+  porcentagemLucro Int
   promocaodesconto Int
-  precoliquido1    Float
+  valorVenda       Float
+  valorAtacado     Float
   created_at       DateTime @default(now())
   updated_at       DateTime @updatedAt
-  Produto          Produto  @relation(fields: [produtoid], references: [produto1])
+  Produto          Produto  @relation(fields: [codigoid], references: [codigo])
 }
 
 model Role {
@@ -52,7 +85,7 @@ model Usuario {
 model Log {
   id            Int      @id @unique @default(autoincrement())
   idUser        String
-  idProduto     String  
+  idProduto     String
   campoAlterado String
   valorOriginal String
   valorAlterado String
@@ -60,6 +93,6 @@ model Log {
 }
 
 model Mensagem {
-  id            Int      @id @unique @default(autoincrement())
-  mensagem      String
+  id       Int    @id @unique @default(autoincrement())
+  mensagem String
 }
