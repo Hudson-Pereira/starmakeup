@@ -46,10 +46,12 @@ export class ProdutoService {
       }
       console.log(`Produto ${prod.nome}.`);
 
-      const val = prod.mesValidade;
+      const val = prod.dataValidade;
       console.log(val);
       let data = new Date();
-      let dataFormatada = `${data.getMonth() + 1}`;
+      let dataFormatada = `${data.getDate()}${
+        data.getMonth() + 1
+      }${data.getFullYear()}`;
       console.log(dataFormatada);
 
       return prod;
