@@ -22,19 +22,11 @@ export class TipoService {
     }
   }
 
-  findAll() {
-    return `This action returns all tipo`;
+  async findAll(): Promise<Tipo[]> {
+    return await this.prisma.tipo.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tipo`;
-  }
-
-  update(id: number, updateTipoDto: UpdateTipoDto) {
-    return `This action updates a #${id} tipo`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} tipo`;
+  async findOne(id: number): Promise<Tipo> {
+    return await this.prisma.tipo.findUnique({ where: { id } });
   }
 }
