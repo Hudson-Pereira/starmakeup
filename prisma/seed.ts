@@ -96,7 +96,7 @@ async function main() {
       imagem: "http://teste.com.br",
       nome: "produto 1",
       descricao: "branca, regata, com desenho.",
-      dataValidade: "10/10/2025",
+      dataValidade: 25102025,
       quantidade: 10,
     },
   });
@@ -109,7 +109,7 @@ async function main() {
       imagem: "http://teste.com.br",
       nome: "produto 2",
       descricao: "branca, regata, com desenho.",
-      dataValidade: "10/10/2025",
+      dataValidade: 25102025,
       quantidade: 10,
     },
   });
@@ -122,7 +122,7 @@ async function main() {
       imagem: "http://teste.com.br",
       nome: "produto 3",
       descricao: "branca, regata, com desenho.",
-      dataValidade: "10/10/2025",
+      dataValidade: 25102025,
       quantidade: 10,
     },
   });
@@ -135,7 +135,7 @@ async function main() {
       imagem: "http://teste.com.br",
       nome: "produto 4",
       descricao: "branca, regata, com desenho.",
-      dataValidade: "10/10/2025",
+      dataValidade: 25102025,
       quantidade: 10,
     },
   });
@@ -148,7 +148,7 @@ async function main() {
       imagem: "http://teste.com.br",
       nome: "produto 5",
       descricao: "branca, regata, com desenho.",
-      dataValidade: "10/10/2025",
+      dataValidade: 25102025,
       quantidade: 10,
     },
   });
@@ -161,7 +161,7 @@ async function main() {
       imagem: "http://teste.com.br",
       nome: "produto 6",
       descricao: "branca, regata, com desenho.",
-      dataValidade: "10/10/2025",
+      dataValidade: 25102025,
       quantidade: 10,
     },
   });
@@ -174,7 +174,7 @@ async function main() {
       imagem: "http://teste.com.br",
       nome: "produto 7",
       descricao: "branca, regata, com desenho.",
-      dataValidade: "10/10/2025",
+      dataValidade: 25102025,
       quantidade: 10,
     },
   });
@@ -187,7 +187,7 @@ async function main() {
       imagem: "http://teste.com.br",
       nome: "produto 8",
       descricao: "branca, regata, com desenho.",
-      dataValidade: "10/10/2025",
+      dataValidade: 25102025,
       quantidade: 10,
     },
   });
@@ -200,7 +200,7 @@ async function main() {
       imagem: "http://teste.com.br",
       nome: "produto 9",
       descricao: "branca, regata, com desenho.",
-      dataValidade: "10/10/2025",
+      dataValidade: 25102025,
       quantidade: 10,
     },
   });
@@ -213,7 +213,7 @@ async function main() {
       imagem: "http://teste.com.br",
       nome: "produto 10",
       descricao: "branca, regata, com desenho.",
-      dataValidade: "10/10/2025",
+      dataValidade: 25102025,
       quantidade: 10,
     },
   });
@@ -226,7 +226,7 @@ async function main() {
       imagem: "http://teste.com.br",
       nome: "produto 11",
       descricao: "branca, regata, com desenho.",
-      dataValidade: "10/10/2025",
+      dataValidade: 25102025,
       quantidade: 10,
     },
   });

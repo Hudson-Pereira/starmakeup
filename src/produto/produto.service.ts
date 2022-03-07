@@ -44,6 +44,14 @@ export class ProdutoService {
         console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
+      console.log(`Produto ${prod.nome}.`);
+
+      const val = prod.mesValidade;
+      console.log(val);
+      let data = new Date();
+      let dataFormatada = `${data.getMonth() + 1}`;
+      console.log(dataFormatada);
+
       return prod;
     } catch (error) {
       console.error(error);
@@ -100,10 +108,12 @@ export class ProdutoService {
           data: {
             codigo: dados[0],
             imagem: dados[1],
-            nome: dados[3],
-            descricao: dados[2],
-            dataValidade: dados[3],
-            quantidade: dados[4],
+            nome: dados[2],
+            descricao: dados[3],
+            diaValidade: dados[4],
+            mesValidade: dados[5],
+            anoValidade: dados[6],
+            quantidade: dados[7],
           },
           where: { codigo: dados[0] },
         });
