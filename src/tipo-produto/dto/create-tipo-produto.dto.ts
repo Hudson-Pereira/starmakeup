@@ -1,8 +1,8 @@
-import { IsInt, IsNotEmpty } from "class-validator";
+import { IsInt, IsNotEmpty, IsString } from "class-validator";
 export class CreateTipoProdutoDto {
   @IsNotEmpty()
-  @IsInt()
-  produtoid: number;
+  @IsString()
+  produtoid: string;
 
   @IsNotEmpty()
   @IsInt()
