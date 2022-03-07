@@ -9,10 +9,8 @@ async function bootstrap() {
   app.enableCors();
 
   const config = new DocumentBuilder()
-    .setTitle("Projeto Gerenciador de E-commerce")
-    .setDescription(
-      "O projeto consiste em um gerenciador para a administração de produtos que são vendidos em um e-commerce de roupas"
-    )
+    .setTitle("Star Makeup")
+    .setDescription("")
     .addTag("users")
     .build();
   const document = SwaggerModule.createDocument(app, config);
