@@ -36,7 +36,13 @@ export class CreateProdutoDto {
   @IsNotEmpty()
   @IsInt()
   diaValidade: number;
+
+  @IsNotEmpty()
+  @IsInt()
   mesValidade: number;
+
+  @IsNotEmpty()
+  @IsInt()
   anoValidade: number;
 
   @IsNotEmpty()

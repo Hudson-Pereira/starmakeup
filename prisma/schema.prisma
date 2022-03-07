@@ -15,7 +15,9 @@ model Produto {
   descricao      String
   tipo           tipoProduto[]
   fornecedor     fornecedorProduto[]
-  dataValidade   Int
+  diaValidade    Int
+  mesValidade    Int
+  anoValidade    Int
   quantidade     Int
   created_at     DateTime            @default(now())
   updated_at     DateTime            @updatedAt

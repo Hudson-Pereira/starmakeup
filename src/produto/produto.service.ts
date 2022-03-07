@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { Prisma, Produto } from "@prisma/client";
+import { isRFC3339 } from "class-validator";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CreateProdutoDto } from "./dto/create-produto.dto";
 import { UpdateProdutoDto } from "./dto/update-produto.dto";
@@ -8,7 +9,9 @@ import { UpdateProdutoDto } from "./dto/update-produto.dto";
 export class ProdutoService {
   constructor(private prisma: PrismaService) {}
 
-  async createPrisma(data: Prisma.ProdutoCreateInput): Promise<Produto> {
+  async createPrisma(
+    data: Prisma.ProdutoUncheckedCreateInput
+  ): Promise<Produto> {
     try {
       const prod = await this.prisma.produto.create({ data });
       console.log(`Produto ${prod.nome} criado com sucesso.`);
@@ -46,13 +49,35 @@ export class ProdutoService {
       }
       console.log(`Produto ${prod.nome}.`);
 
-      const val = prod.dataValidade;
-      console.log(val);
-      let data = new Date();
-      let dataFormatada = `${data.getDate()}${
-        data.getMonth() + 1
-      }${data.getFullYear()}`;
-      console.log(dataFormatada);
+      const data = new Date();
+      const ano = `${data.getFullYear()}`;
+      const anoFormatado = parseInt(ano);
+
+      const anoVal = prod.anoValidade;
+      const mesVal = prod.mesValidade;
+      const mesFormatado = `${data.getMonth() + 1}`;
+      const mesNumber = parseInt(mesFormatado);
+
+      if (anoVal >= anoFormatado && mesVal - mesNumber === 1) {
+        console.log(
+          `ATENÇÃO: Produto vencendo em ${prod.diaValidade}/${mesVal}.`
+        );
+      } else if (
+        anoVal >= anoFormatado &&
+        mesVal - mesNumber < 2 &&
+        mesVal - mesNumber > 1
+      ) {
+        console.log(`Produto vencendo em ${prod.diaValidade}/${mesVal}.`);
+      } else if (
+        anoVal < anoFormatado ||
+        (anoVal >= anoFormatado && mesVal - mesNumber < 1)
+      ) {
+        console.log(
+          `PRODUTO VENCIDO EM ${prod.diaValidade}/${mesVal}/${anoVal}.`
+        );
+      } else {
+        console.log(`Vencimento do produto em ${prod.diaValidade}/${mesVal}.`);
+      }
 
       return prod;
     } catch (error) {
