@@ -28,11 +28,21 @@ export class ProdutoService {
   async findAllPrisma(): Promise<Produto[]> {
     try {
       const total = await this.prisma.produto.findMany();
-      console.log(`Temos ${total.length} produtos.`);
+      let tam = total.length;
+      let disp = 0;
+
       if (!total) {
         console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
+      total.map(async (total) => {
+        if (total.quantidade != 0) {
+          disp = disp + 1;
+        }
+      });
+      console.log(
+        `Temos um total de ${tam} produtos cadastrados e ${disp} produtos disponíveis.`
+      );
       return total;
     } catch (error) {
       console.error(error);
@@ -47,41 +57,53 @@ export class ProdutoService {
         console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
-      console.log(`Produto ${prod.nome}.`);
 
       const data = new Date();
       const ano = `${data.getFullYear()}`;
       const anoFormatado = parseInt(ano);
-
-      const anoVal = prod.anoValidade;
-      const mesVal = prod.mesValidade;
       const mesFormatado = `${data.getMonth() + 1}`;
       const mesNumber = parseInt(mesFormatado);
+      const diaFormatado = `${data.getDay()}`;
+      const diaNumber = parseInt(diaFormatado);
 
-      if (anoVal >= anoFormatado && mesVal - mesNumber === 1) {
+      if (
+        prod.anoValidade >= anoFormatado &&
+        prod.mesValidade - mesNumber === 1
+      ) {
         console.log(
-          `ATENÇÃO: Produto vencendo em ${prod.diaValidade}/${mesVal}.`
+          `ATENÇÃO: Produto vencendo em ${prod.diaValidade}/${prod.mesValidade}.`
         );
       } else if (
-        anoVal >= anoFormatado &&
-        mesVal - mesNumber < 2 &&
-        mesVal - mesNumber > 1
-      ) {
-        console.log(`Produto vencendo em ${prod.diaValidade}/${mesVal}.`);
-      } else if (
-        anoVal < anoFormatado ||
-        (anoVal >= anoFormatado && mesVal - mesNumber < 1)
+        prod.anoValidade >= anoFormatado &&
+        prod.mesValidade - mesNumber < 2 &&
+        prod.mesValidade - mesNumber > 1
       ) {
         console.log(
-          `PRODUTO VENCIDO EM ${prod.diaValidade}/${mesVal}/${anoVal}.`
+          `Produto vencendo em ${prod.diaValidade}/${prod.mesValidade}.`
+        );
+      } else if (
+        prod.anoValidade < anoFormatado ||
+        (prod.anoValidade >= anoFormatado &&
+          prod.mesValidade - mesNumber < 1 &&
+          prod.diaValidade - diaNumber < 1)
+      ) {
+        console.log(
+          `PRODUTO VENCIDO EM ${prod.diaValidade}/${prod.mesValidade}/${prod.anoValidade}.`
         );
       } else {
-        console.log(`Vencimento do produto em ${prod.diaValidade}/${mesVal}.`);
+        console.log(
+          `Vencimento do produto em ${prod.diaValidade}/${prod.mesValidade}/${prod.anoValidade}.`
+        );
       }
 
+      if (prod.quantidade <= 0) {
+        console.log("Produto sem estoque.");
+      } else if (prod.quantidade < 10) {
+        console.log("Produto com baixo estoque.");
+      }
       return prod;
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
       throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
     }
   }
