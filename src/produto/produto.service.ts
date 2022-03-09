@@ -1,8 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { Prisma, Produto } from "@prisma/client";
-import { isRFC3339 } from "class-validator";
 import { PrismaService } from "src/prisma/prisma.service";
-import { CreateProdutoDto } from "./dto/create-produto.dto";
 import { UpdateProdutoDto } from "./dto/update-produto.dto";
 
 @Injectable()
@@ -32,7 +30,6 @@ export class ProdutoService {
       let disp = 0;
 
       if (!total) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
       total.map(async (total) => {
@@ -50,11 +47,17 @@ export class ProdutoService {
     }
   }
 
-  async findOnePrisma(id: number): Promise<Produto> {
+  async findOnePrisma(id: number) {
     try {
       const prod = await this.prisma.produto.findUnique({ where: { id } });
-      if (!prod) {
-        console.log("Nenhum item encontrado.");
+      const preco = await this.prisma.produtosPrecos.findUnique({
+        where: { id },
+      });
+      const tipo = await this.prisma.tipoProduto.findUnique({ where: { id } });
+      const fornecedor = await this.prisma.fornecedorProduto.findUnique({
+        where: { id },
+      });
+      if (!prod || !preco || !tipo || !fornecedor) {
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
 
@@ -101,7 +104,15 @@ export class ProdutoService {
       } else if (prod.quantidade < 10) {
         console.log("Produto com baixo estoque.");
       }
-      return prod;
+
+      const venda = `Valor total da venda: R$ ${
+        prod.quantidade * preco.valorVenda
+      }.`;
+      const estoque = `Valor total do estoque: R$ ${
+        prod.quantidade * preco.precoCusto
+      }.`;
+      const result = [prod, preco, tipo, fornecedor, estoque, venda];
+      return result;
     } catch (error) {
       console.error(error.message);
       throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);

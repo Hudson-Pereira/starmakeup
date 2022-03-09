@@ -43,10 +43,12 @@ export class ProdutosprecosService {
       const preco = await this.prisma.produtosPrecos.findUnique({
         where: { id },
       });
+
       if (!preco) {
         console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
+
       return preco;
     } catch (error) {
       console.error(error);
