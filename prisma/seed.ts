@@ -71,9 +71,9 @@ async function main() {
     update: {},
     create: {
       nome: "fornecedor 1 seed",
-      cnpj: 15484115000145,
+      cnpj: "15484115000145",
       email: "fornecedor1@seed.com",
-      contato: 38984113383,
+      contato: "38984113383",
     },
   });
 
@@ -82,9 +82,9 @@ async function main() {
     update: {},
     create: {
       nome: "fornecedor 2 seed",
-      cnpj: 15484115000146,
+      cnpj: "15484115000146",
       email: "fornecedor2@seed.com",
-      contato: 38984288917,
+      contato: "38984288917",
     },
   });
 
@@ -357,7 +357,7 @@ async function main() {
     update: {},
     create: {
       produtoid: "29.14.1159",
-      fornecedorid: 15484115000145,
+      fornecedorid: "15484115000145",
     },
   });
 
@@ -366,7 +366,7 @@ async function main() {
     update: {},
     create: {
       produtoid: "29.14.1160",
-      fornecedorid: 15484115000146,
+      fornecedorid: "15484115000146",
     },
   });
 
@@ -375,7 +375,7 @@ async function main() {
     update: {},
     create: {
       produtoid: "29.14.1161",
-      fornecedorid: 15484115000145,
+      fornecedorid: "15484115000145",
     },
   });
 
@@ -384,7 +384,7 @@ async function main() {
     update: {},
     create: {
       produtoid: "29.14.1162",
-      fornecedorid: 15484115000146,
+      fornecedorid: "15484115000146",
     },
   });
 
@@ -393,7 +393,7 @@ async function main() {
     update: {},
     create: {
       produtoid: "29.14.1163",
-      fornecedorid: 15484115000145,
+      fornecedorid: "15484115000145",
     },
   });
 
@@ -402,7 +402,7 @@ async function main() {
     update: {},
     create: {
       produtoid: "29.14.1164",
-      fornecedorid: 15484115000146,
+      fornecedorid: "15484115000146",
     },
   });
 
@@ -411,7 +411,7 @@ async function main() {
     update: {},
     create: {
       produtoid: "29.14.1165",
-      fornecedorid: 15484115000145,
+      fornecedorid: "15484115000145",
     },
   });
 
@@ -420,7 +420,7 @@ async function main() {
     update: {},
     create: {
       produtoid: "29.14.1166",
-      fornecedorid: 15484115000146,
+      fornecedorid: "15484115000146",
     },
   });
 
@@ -429,7 +429,7 @@ async function main() {
     update: {},
     create: {
       produtoid: "29.14.1167",
-      fornecedorid: 15484115000145,
+      fornecedorid: "15484115000145",
     },
   });
 
@@ -438,7 +438,7 @@ async function main() {
     update: {},
     create: {
       produtoid: "29.14.1168",
-      fornecedorid: 15484115000146,
+      fornecedorid: "15484115000146",
     },
   });
 
@@ -447,7 +447,7 @@ async function main() {
     update: {},
     create: {
       produtoid: "29.14.1169",
-      fornecedorid: 15484115000145,
+      fornecedorid: "15484115000145",
     },
   });
 

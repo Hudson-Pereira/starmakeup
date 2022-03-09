@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 
 export class CreateFornecedorProdutoDto {
   @IsNotEmpty()
@@ -6,6 +6,6 @@ export class CreateFornecedorProdutoDto {
   produtoid: string;
 
   @IsNotEmpty()
-  @IsInt()
-  fornecedorid: number;
+  @IsString()
+  fornecedorid: string;
 }

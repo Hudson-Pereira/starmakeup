@@ -43,15 +43,15 @@ model fornecedorProduto {
   produto      Produto    @relation(fields: [produtoid], references: [codigo])
   fornecedor   Fornecedor @relation(fields: [fornecedorid], references: [cnpj])
   produtoid    String
-  fornecedorid Int
+  fornecedorid String
 }
 
 model Fornecedor {
   id      Int                 @id @unique @default(autoincrement())
   nome    String
-  cnpj    Int                 @unique
+  cnpj    String                 @unique
   email   String
-  contato Int
+  contato String
   produto fornecedorProduto[]
 }
 
