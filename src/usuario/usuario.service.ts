@@ -12,13 +12,13 @@ export class UsuarioService {
   constructor(private prisma: PrismaService) {}
   roles: Role[];
 
-  async create(data: Prisma.UsuarioUncheckedCreateInput): Promise<Usuario> {
+  async create(data: Prisma.UsuarioUncheckedCreateInput) {
     data.senha = await bcrypt.hash(data.senha, 10);
     try {
       const createdUser = await this.prisma.usuario.create({ data });
       createdUser.senha = undefined;
-      console.log(`Usuário ${createdUser.nome} criado com sucesso.`);
-      return createdUser;
+
+      return [createdUser, `Usuário ${createdUser.nome} criado com sucesso.`];
     } catch (error) {
       console.log(error);
       throw new HttpException("Email já em uso.", HttpStatus.BAD_REQUEST);
@@ -68,7 +68,6 @@ export class UsuarioService {
     try {
       const total = await this.prisma.usuario.findMany();
       if (total.length === 0) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException(
           "Nenhum item encontrado.",
           HttpStatus.NOT_FOUND
@@ -85,7 +84,6 @@ export class UsuarioService {
     try {
       const user = await this.prisma.usuario.findUnique({ where: { id } });
       if (!user) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException(
           "Nenhum item encontrado.",
           HttpStatus.NOT_FOUND
@@ -103,7 +101,6 @@ export class UsuarioService {
     try {
       const user = await this.prisma.usuario.update({ data, where: { id } });
       if (!user) {
-        console.log("Item não encontrado.");
         throw new HttpException(
           "Nenhum item encontrado.",
           HttpStatus.NOT_FOUND
@@ -120,7 +117,6 @@ export class UsuarioService {
     try {
       const user = await this.prisma.usuario.delete({ where: { id } });
       if (!user) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
       return user;

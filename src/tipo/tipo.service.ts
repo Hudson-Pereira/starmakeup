@@ -7,18 +7,22 @@ import { UpdateTipoDto } from "./dto/update-tipo.dto";
 @Injectable()
 export class TipoService {
   constructor(private prisma: PrismaService) {}
-
   async create(data: Prisma.TipoCreateInput): Promise<Tipo> {
     try {
       const tipo = await this.prisma.tipo.create({ data });
       if (!tipo) {
-        console.log("Verifique os dados e tente novamente");
-        throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          "Verifique os dados e tente novamente",
+          HttpStatus.BAD_REQUEST
+        );
       }
       return tipo;
     } catch (error) {
       console.error(error);
-      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        "Verifique os dados e tente novamente",
+        HttpStatus.BAD_REQUEST
+      );
     }
   }
 

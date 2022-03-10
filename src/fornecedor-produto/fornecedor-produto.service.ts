@@ -8,13 +8,11 @@ import { UpdateFornecedorProdutoDto } from "./dto/update-fornecedor-produto.dto"
 export class FornecedorProdutoService {
   constructor(private prisma: PrismaService) {}
 
-  async create(
-    data: Prisma.fornecedorProdutoUncheckedCreateInput
-  ): Promise<fornecedorProduto> {
+  async create(data: Prisma.fornecedorProdutoUncheckedCreateInput) {
     try {
       const fornProd = await this.prisma.fornecedorProduto.create({ data });
-      console.log(`Criado com sucesso.`);
-      return fornProd;
+
+      return [fornProd, `Produto cadastrado ao fornecedor.`];
     } catch (error) {
       console.error(error);
       throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
@@ -25,7 +23,6 @@ export class FornecedorProdutoService {
     try {
       const total = await this.prisma.fornecedorProduto.findMany();
       if (!total) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
       return total;
@@ -41,7 +38,6 @@ export class FornecedorProdutoService {
         where: { id },
       });
       if (!fornProd) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException(
           "Nenhum item encontrado.",
           HttpStatus.NOT_FOUND
@@ -64,7 +60,6 @@ export class FornecedorProdutoService {
         where: { id },
       });
       if (!fornProd) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
       return fornProd;
@@ -80,7 +75,6 @@ export class FornecedorProdutoService {
         where: { id },
       });
       if (!fornProd) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
       return fornProd;

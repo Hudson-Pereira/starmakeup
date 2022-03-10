@@ -7,7 +7,6 @@ import { UpdateProdutosprecoDto } from "./dto/update-produtospreco.dto";
 @Injectable()
 export class ProdutosprecosService {
   constructor(private prisma: PrismaService) {}
-
   async createPrisma(
     data: Prisma.ProdutosPrecosUncheckedCreateInput
   ): Promise<ProdutosPrecos> {
@@ -28,13 +27,12 @@ export class ProdutosprecosService {
       const total = await this.prisma.produtosPrecos.findMany();
       console.log(`Temos ${total.length} preços de produtos.`);
       if (!total) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
       return total;
     } catch (error) {
       console.error(error);
-      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
+      throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
     }
   }
 
@@ -45,14 +43,13 @@ export class ProdutosprecosService {
       });
 
       if (!preco) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
 
       return preco;
     } catch (error) {
       console.error(error);
-      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
+      throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
     }
   }
 
@@ -66,13 +63,12 @@ export class ProdutosprecosService {
         where: { id },
       });
       if (!preco) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
       return preco;
     } catch (error) {
       console.error(error);
-      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
+      throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
     }
   }
 
@@ -80,7 +76,6 @@ export class ProdutosprecosService {
     try {
       const preco = await this.prisma.produtosPrecos.delete({ where: { id } });
       if (!preco) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
       return preco;
@@ -95,7 +90,6 @@ export class ProdutosprecosService {
 
   async uploadFilePrisma(dados: any) {
     if (!dados) {
-      console.log("Item vazio.");
       throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
     }
     const dado = dados.shift();

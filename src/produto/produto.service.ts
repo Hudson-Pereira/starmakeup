@@ -6,14 +6,11 @@ import { UpdateProdutoDto } from "./dto/update-produto.dto";
 @Injectable()
 export class ProdutoService {
   constructor(private prisma: PrismaService) {}
-
-  async createPrisma(
-    data: Prisma.ProdutoUncheckedCreateInput
-  ): Promise<Produto> {
+  async createPrisma(data: Prisma.ProdutoUncheckedCreateInput) {
     try {
       const prod = await this.prisma.produto.create({ data });
-      console.log(`Produto ${prod.nome} criado com sucesso.`);
-      return prod;
+
+      return [prod, `Produto ${prod.nome} criado com sucesso.`];
     } catch (error) {
       console.error(error);
       throw new HttpException(
@@ -23,7 +20,7 @@ export class ProdutoService {
     }
   }
 
-  async findAllPrisma(): Promise<Produto[]> {
+  async findAllPrisma() {
     try {
       const total = await this.prisma.produto.findMany();
       let tam = total.length;
@@ -37,10 +34,10 @@ export class ProdutoService {
           disp = disp + 1;
         }
       });
-      console.log(
-        `Temos um total de ${tam} produtos cadastrados e ${disp} produtos disponíveis.`
-      );
-      return total;
+      return [
+        total,
+        `Temos um total de ${tam} produtos cadastrados e ${disp} produtos disponíveis.`,
+      ];
     } catch (error) {
       console.error(error);
       throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
@@ -111,11 +108,10 @@ export class ProdutoService {
       const estoque = `Valor total do estoque: R$ ${
         prod.quantidade * preco.precoCusto
       }.`;
-      const result = [prod, preco, tipo, fornecedor, estoque, venda];
-      return result;
+      return [prod, preco, tipo, fornecedor, estoque, venda];
     } catch (error) {
       console.error(error.message);
-      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
+      throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
     }
   }
 
@@ -129,13 +125,12 @@ export class ProdutoService {
         where: { id },
       });
       if (!prod) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
       return prod;
     } catch (error) {
       console.error(error);
-      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
+      throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
     }
   }
 
@@ -143,22 +138,17 @@ export class ProdutoService {
     try {
       const prod = await this.prisma.produto.delete({ where: { id } });
       if (!prod) {
-        console.log("Nenhum item encontrado.");
         throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
       }
       return prod;
     } catch (error) {
       console.error(error);
-      throw new HttpException(
-        "Erro ao excluir, tente novamente",
-        HttpStatus.NOT_FOUND
-      );
+      throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
     }
   }
 
   async uploadFilePrisma(dados: any) {
     if (!dados) {
-      console.log("Item vazio.");
       throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
     }
     const dado = dados.shift();
