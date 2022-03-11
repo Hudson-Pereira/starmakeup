@@ -56,13 +56,12 @@ export class ProdutoController {
   uploadFile(@UploadedFile() file: Express.Multer.File): Promise<void> {
     try {
       const workSheetsFromFile = xlsx.parse(file.path);
-      const dados = workSheetsFromFile[0].data
-    return this.produtoService.uploadFilePrisma(dados);
-    } catch(error){
-      console.error(error)
-       throw new HttpException("ERRO", HttpStatus.BAD_REQUEST); 
-    } 
-    
+      const dados = workSheetsFromFile[0].data;
+      return this.produtoService.uploadFilePrisma(dados);
+    } catch (error) {
+      console.error(error);
+      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Delete(":id")

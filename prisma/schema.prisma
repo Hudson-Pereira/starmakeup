@@ -22,6 +22,7 @@ model Produto {
   created_at     DateTime            @default(now())
   updated_at     DateTime            @updatedAt
   ProdutosPrecos ProdutosPrecos?
+  Vendas         Venda[]
 }
 
 model tipoProduto {
@@ -97,4 +98,13 @@ model Log {
 model Mensagem {
   id       Int    @id @unique @default(autoincrement())
   mensagem String
+}
+
+model Venda {
+  id            Int            @id @unique @default(autoincrement())
+  codigoId      Produto        @relation(fields: [produto], references:[codigo])
+  produto       String         
+  quantidade    Int
+  valorFinal    Int
+  created_at    DateTime @default(now())
 }

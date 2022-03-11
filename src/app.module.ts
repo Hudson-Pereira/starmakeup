@@ -15,6 +15,7 @@ import { FornecedorModule } from './fornecedor/fornecedor.module';
 import { TipoModule } from './tipo/tipo.module';
 import { TipoProdutoModule } from './tipo-produto/tipo-produto.module';
 import { FornecedorProdutoModule } from './fornecedor-produto/fornecedor-produto.module';
+import { VendaModule } from './venda/venda.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { FornecedorProdutoModule } from './fornecedor-produto/fornecedor-produto
     TipoModule,
     TipoProdutoModule,
     FornecedorProdutoModule,
+    VendaModule,
     // LogsModule,
     // CamposModule,
   ],
