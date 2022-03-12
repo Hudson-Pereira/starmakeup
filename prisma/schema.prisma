@@ -83,6 +83,7 @@ model Usuario {
   isAdmin    Int
   created_at DateTime @default(now())
   role       Role     @relation(fields: [isAdmin], references: [id])
+  caixa      Caixa[]     
 }
 
 model Log {
@@ -110,4 +111,17 @@ model Venda {
   pagamento     String
   valorFinal    Int
   created_at    DateTime @default(now())
+}
+
+model Caixa {
+  id             Int      @id @unique @default(autoincrement())
+  data           DateTime @default(now())
+  saldoInicial   Int
+  userid         Usuario    @relation(fields: [usuario], references:[id])
+  usuario        Int
+  vendasDinheiro Int
+  vendasDebito   Int
+  vendasCredito  Int
+  valorFinal     Int
+  lucro          Int
 }
