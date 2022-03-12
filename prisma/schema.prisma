@@ -105,6 +105,9 @@ model Venda {
   codigoId      Produto        @relation(fields: [produto], references:[codigo])
   produto       String         
   quantidade    Int
+  valorExtra    Int
+  desconto      Int
+  pagamento     String
   valorFinal    Int
   created_at    DateTime @default(now())
 }
