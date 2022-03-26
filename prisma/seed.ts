@@ -600,6 +600,33 @@ async function main() {
     create: { mensagem: "Louvado seja o Senhor." },
   });
 
+  // const pagamentoDin = await prisma.pagamento.upsert({
+  //   where: { id: 1 },
+  //   update: {},
+  //   create: {
+  //     forma: "Dinheiro",
+  //   },
+  // });
+
+  // const pagamentoDeb = await prisma.pagamento.upsert({
+  //   where: { id: 2 },
+  //   update: {},
+  //   create: {
+  //     forma: "Débito",
+  //   },
+  // });
+
+  // const pagamentoCre = await prisma.pagamento.upsert({
+  //   where: { id: 3 },
+  //   update: {},
+  //   create: {
+  //     forma: "Crédito",
+  //   },
+  // });
+
+  // console.log({ pagamentoCre });
+  // console.log({ pagamentoDeb });
+  // console.log({ pagamentoDin });
   console.log({ mensagemSeed });
   console.log({ produtoPreco1Seed });
   console.log({ produtoPreco2Seed });

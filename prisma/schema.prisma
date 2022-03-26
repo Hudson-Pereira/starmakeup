@@ -108,20 +108,25 @@ model Venda {
   quantidade    Int
   valorExtra    Int
   desconto      Int
-  pagamento     String
+  valorDebito   Int
+  valorCredito  Int
+  valorDinheiro Int
   valorFinal    Int
   created_at    DateTime @default(now())
+  caixa         Int
+  caixaId       Caixa    @relation(fields: [caixa], references:[id])
 }
 
 model Caixa {
   id             Int      @id @unique @default(autoincrement())
-  data           DateTime @default(now())
+  data           DateTime @default(now()) @unique
   saldoInicial   Int
   userid         Usuario    @relation(fields: [usuario], references:[id])
   usuario        Int
-  vendasDinheiro Int
-  vendasDebito   Int
-  vendasCredito  Int
-  valorFinal     Int
-  lucro          Int
+  vendasDinheiro Int        @default(0)
+  vendasDebito   Int        @default(0)
+  vendasCredito  Int        @default(0)
+  valorFinal     Int        @default(0)
+  lucro          Int        @default(0)
+  vendas         Venda[]
 }

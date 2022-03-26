@@ -17,7 +17,7 @@ export class CaixaController {
   constructor(private readonly caixaService: CaixaService) {}
 
   @Post()
-  create(@Body() createCaixaDto: Prisma.CaixaCreateInput) {
+  create(@Body() createCaixaDto: CreateCaixaDto) {
     return this.caixaService.create(createCaixaDto);
   }
 
@@ -29,5 +29,10 @@ export class CaixaController {
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.caixaService.findOne(+id);
+  }
+
+  @Patch(":id")
+  update(@Param("id") id: string, @Body() updateCaixaDto: UpdateCaixaDto) {
+    return this.caixaService.updatePrisma(+id, updateCaixaDto);
   }
 }

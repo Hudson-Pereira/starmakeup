@@ -6,7 +6,8 @@ import { PrismaService } from "src/prisma/prisma.service";
 export class VendaService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: Prisma.VendaUncheckedCreateInput) {
+  async create(data: Prisma.VendaCreateInput) {
+    //TODO colocar mais de um produto para venda
     try {
       const venda = await this.prisma.venda.create({ data });
       if (!venda) {

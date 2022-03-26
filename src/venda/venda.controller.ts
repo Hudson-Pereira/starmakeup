@@ -21,7 +21,7 @@ export class VendaController {
   ) {}
 
   @Post()
-  create(@Body() createVendaDto: CreateVendaDto) {
+  create(@Body() createVendaDto: Prisma.VendaCreateInput) {
     return this.vendaService.create(createVendaDto);
   }
 

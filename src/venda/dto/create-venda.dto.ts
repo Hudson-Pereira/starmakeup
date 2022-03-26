@@ -9,15 +9,29 @@ export class CreateVendaDto {
   @IsNotEmpty()
   quantidade: number;
 
+  @IsInt()
   valorExtra: number;
 
+  @IsInt()
   desconto: number;
 
-  @IsString()
+  @IsInt()
   @IsNotEmpty()
-  pagamento: string;
+  valorDebito: number;
+
+  @IsInt()
+  @IsNotEmpty()
+  valorCredito: number;
+
+  @IsInt()
+  @IsNotEmpty()
+  valorDinheiro: number;
 
   @IsInt()
   @IsNotEmpty()
   valorFinal: number;
+
+  @IsInt()
+  @IsNotEmpty()
+  caixa: number;
 }
