@@ -600,6 +600,20 @@ async function main() {
     create: { mensagem: "Louvado seja o Senhor." },
   });
 
+  const caixaSeed = await prisma.caixa.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      saldoInicial: 50,
+      usuario: 1,
+      vendasDinheiro: 0,
+      vendasDebito: 0,
+      vendasCredito: 0,
+      valorFinal: 0,
+      lucro: 0,
+    },
+  });
+
   // const pagamentoDin = await prisma.pagamento.upsert({
   //   where: { id: 1 },
   //   update: {},
@@ -627,6 +641,7 @@ async function main() {
   // console.log({ pagamentoCre });
   // console.log({ pagamentoDeb });
   // console.log({ pagamentoDin });
+  console.log({ caixaSeed });
   console.log({ mensagemSeed });
   console.log({ produtoPreco1Seed });
   console.log({ produtoPreco2Seed });

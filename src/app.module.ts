@@ -17,6 +17,7 @@ import { TipoProdutoModule } from "./tipo-produto/tipo-produto.module";
 import { FornecedorProdutoModule } from "./fornecedor-produto/fornecedor-produto.module";
 import { VendaModule } from "./venda/venda.module";
 import { CaixaModule } from "./caixa/caixa.module";
+import { ContasModule } from './contas/contas.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { CaixaModule } from "./caixa/caixa.module";
     FornecedorProdutoModule,
     VendaModule,
     CaixaModule,
+    ContasModule,
   ],
   controllers: [AppController],
   providers: [AppService],

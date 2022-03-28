@@ -130,3 +130,9 @@ model Caixa {
   lucro          Int        @default(0)
   vendas         Venda[]
 }
+
+model Contas {
+  id          Int @id @unique @default(autoincrement())
+  pagamento   Int
+  compra      Int
+}
