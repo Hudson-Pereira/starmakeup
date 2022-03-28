@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import { Prisma } from "@prisma/client";
+import { Contas, Prisma } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
 import { UpdateContaDto } from "./dto/update-conta.dto";
 
@@ -41,7 +41,11 @@ export class ContasService {
       if (!conta) {
         return new NotFoundException("Nada encontrado");
       }
-      return conta;
+
+      return [
+        `Foram gastos R$${conta.pagamento} em pagamentos de contas e R$${conta.compra} em compras.`,
+        conta,
+      ];
     } catch (error) {
       console.error(error.message);
       return new BadRequestException("Erro");
