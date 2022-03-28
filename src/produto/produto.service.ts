@@ -35,8 +35,8 @@ export class ProdutoService {
         }
       });
       return [
-        total,
         `Temos um total de ${tam} produtos cadastrados e ${disp} produtos disponíveis.`,
+        total,
       ];
     } catch (error) {
       console.error(error);
@@ -166,6 +166,32 @@ export class ProdutoService {
             quantidade: dados[7],
           },
           where: { codigo: dados[0] },
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async uploadFile(dados: any) {
+    if (!dados) {
+      throw new HttpException("Nenhum item encontrado", HttpStatus.NOT_FOUND);
+    }
+    const dado = dados.shift();
+    try {
+      dados.map(async (dados) => {
+        await this.prisma.produto.create({
+          data: {
+            codigo: dados[0],
+            imagem: dados[1],
+            nome: dados[2],
+            descricao: dados[3],
+            diaValidade: dados[4],
+            mesValidade: dados[5],
+            anoValidade: dados[6],
+            quantidade: dados[7],
+          },
         });
       });
     } catch (error) {

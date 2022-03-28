@@ -64,6 +64,20 @@ export class ProdutoController {
     }
   }
 
+  @Post("upload/new")
+  @UseGuards(AuthGuard("jwt"))
+  @UseInterceptors(FileInterceptor("upload/new"))
+  uploadFileCreate(@UploadedFile() file: Express.Multer.File): Promise<void> {
+    try {
+      const workSheetsFromFile = xlsx.parse(file.path);
+      const dados = workSheetsFromFile[0].data;
+      return this.produtoService.uploadFile(dados);
+    } catch (error) {
+      console.error(error);
+      throw new HttpException("ERRO", HttpStatus.BAD_REQUEST);
+    }
+  }
+
   @Delete(":id")
   @UseGuards(AuthGuard("jwt"))
   remove(@Param("id") id: string) {
