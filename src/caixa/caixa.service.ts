@@ -63,7 +63,7 @@ export class CaixaService {
   }
 
   async updatePrisma(
-    //TODO puxar as informações financeiras automáticamente
+    //TODO puxar as informações financeiras automáticamente - falta subtrair porcentagem
     id: number,
     _updateCaixaDto: UpdateCaixaDto
   ) {

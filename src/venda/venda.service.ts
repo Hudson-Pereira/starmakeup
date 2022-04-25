@@ -15,6 +15,35 @@ export class VendaService {
       }
 
       try {
+        const caixa = await this.prisma.caixa.findUnique({
+          where: {
+            id: venda.caixa
+          }
+        })
+        if (!caixa) {
+          throw new HttpException(
+            "Nenhum item encontrado",
+            HttpStatus.NOT_FOUND
+          );
+        }
+        const valorDebito = venda.valorDebito + caixa.vendasDebito
+        const valorCredito = venda.valorCredito + caixa.vendasCredito
+        const valorDinheiro = venda.valorDinheiro + caixa.vendasDinheiro
+        const valorFinal = venda.valorFinal + caixa.valorFinal
+        const lucro = valorFinal - caixa.saldoInicial
+        const cx = await this.prisma.caixa.update({
+          data: {
+            vendasDebito: valorDebito,
+            vendasCredito: valorCredito,
+            vendasDinheiro: valorDinheiro,
+            valorFinal: valorFinal,
+            lucro: lucro
+          },
+          where: { id: venda.caixa }
+        })
+      } catch (error) { }
+
+      try {
         const produ = await this.prisma.produto.findUnique({
           where: { codigo: venda.produto },
         });
