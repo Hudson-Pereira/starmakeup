@@ -1,11 +1,9 @@
 import { IsInt, IsNotEmpty } from "class-validator";
 
 export class CreateCaixaDto {
-  @IsNotEmpty()
   @IsInt()
   saldoInicial: number;
 
-  @IsNotEmpty()
   @IsInt()
   usuario: number;
 

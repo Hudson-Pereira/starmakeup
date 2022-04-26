@@ -68,7 +68,7 @@ export class CaixaService {
     _updateCaixaDto: UpdateCaixaDto
   ) {
     try {
-      let caixa = await this.prisma.caixa.findUnique({ where: { id } });
+      const caixa = await this.prisma.caixa.findUnique({ where: { id } });
       if (!caixa) {
         return new NotFoundException("Nada encontrado.");
       }
@@ -76,34 +76,17 @@ export class CaixaService {
         where: { caixa: id },
       });
 
-      let totDin = 0;
-      for (let i = 0; i < vendas.length; i++) {
-        totDin = totDin + vendas[i].valorDinheiro;
-      }
-      let totDeb = 0;
-      for (let i = 0; i < vendas.length; i++) {
-        totDeb = totDeb + vendas[i].valorDebito;
-      }
-      let totCred = 0;
-      for (let i = 0; i < vendas.length; i++) {
-        totCred = totCred + vendas[i].valorCredito;
-      }
-      let totExt = 0;
-      for (let i = 0; i < vendas.length; i++) {
-        totExt = totExt + vendas[i].valorExtra;
-      }
 
-      const final = totDin + totDeb + totCred + totExt;
-      const lucro = final - caixa.saldoInicial;
-
-      caixa = await this.prisma.caixa.update({
+      const cx = await this.prisma.caixa.update({
         where: { id },
         data: {
-          vendasDinheiro: totDin,
-          vendasDebito: totDeb,
-          vendasCredito: totCred,
-          valorFinal: final,
-          lucro: lucro,
+          usuario: caixa.usuario,
+          saldoInicial: caixa.saldoInicial,
+          vendasDinheiro: caixa.vendasDinheiro,
+          vendasDebito: caixa.vendasDebito,
+          vendasCredito: caixa.vendasCredito,
+          valorFinal: caixa.valorFinal,
+          lucro: caixa.lucro,
         },
       });
 
